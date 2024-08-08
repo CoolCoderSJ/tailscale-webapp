@@ -20,10 +20,8 @@ RUN apt-get -qq update \
   && :
 
 RUN echo "+search +short" > /root/.digrc
-COPY run-tailscale.sh /root
 
-COPY install-tailscale.sh /tmp
-RUN /tmp/install-tailscale.sh && rm -r /tmp/*
+RUN /root/install-tailscale.sh
 
 EXPOSE 80
 
