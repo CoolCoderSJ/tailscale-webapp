@@ -28,4 +28,6 @@ RUN TAILSCALE_VERSION=${TAILSCALE_VERSION:-1.70.0} \
 
 EXPOSE 80
 
-CMD ./run-tailscale.sh
+CMD /root/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 & \
+    && /root/tailscale up --advertise-exit-node & \
+    && /root/tailscale web --listen 0.0.0.0:80 &
