@@ -21,6 +21,7 @@ RUN apt-get -qq update \
 
 RUN echo "+search +short" > /root/.digrc
 
+RUN chmod +x /root/*.sh
 RUN /root/install-tailscale.sh
 
 EXPOSE 80
