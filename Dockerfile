@@ -21,10 +21,11 @@ RUN apt-get -qq update \
 
 RUN echo "+search +short" > /root/.digrc
 
-RUN chmod +x /root/install-tailscale.sh
-RUN chmod +x /root/run-tailscale.sh
-
-RUN /root/install-tailscale.sh
+RUN TAILSCALE_VERSION=${TAILSCALE_VERSION:-1.70.0} \
+    && TS_FILE=tailscale_${TAILSCALE_VERSION}_amd64.tgz \
+    && wget -q "https://pkgs.tailscale.com/stable/${TS_FILE}" && tar xzf "${TS_FILE}" --strip-components=1 \
+    && cp -r tailscale tailscaled /root
+    && mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale
 
 EXPOSE 80
 
