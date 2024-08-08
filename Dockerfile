@@ -30,4 +30,5 @@ EXPOSE 80
 
 CMD /root/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 & \
     /root/tailscale up --advertise-exit-node & \
-    /root/tailscale web --listen 0.0.0.0:80 &
+    /root/tailscale web --listen 0.0.0.0:80 & \
+    wait
